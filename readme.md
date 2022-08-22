@@ -1,8 +1,10 @@
 Pacotes para instalação 
-pip install + comandos abaixo
+
 autocommand==2.2.1
+cffi==1.15.1
 cheroot==8.6.0
 CherryPy==18.8.0
+cryptography==37.0.4
 greenlet==1.1.2
 inflect==6.0.0
 jaraco.classes==3.2.2
@@ -14,6 +16,7 @@ more-itertools==8.14.0
 mysql-connector-python==8.0.30
 portend==3.1.0
 protobuf==3.20.1
+pycparser==2.21
 pydantic==1.9.2
 PyMySQL==1.0.2
 pytz==2022.2.1

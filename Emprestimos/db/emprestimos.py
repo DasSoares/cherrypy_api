@@ -10,20 +10,21 @@ class Loans(ConnectDB):
     def get_loan(self, id):
         query = select(t_loans).where(t_loans.c.id == id)
         response = self.execute(query).one_or_none()
-        result = {
-            'id' : response[0],
-            'data' : str(response[1]),
-            'nome' : response[2],
-            'descricao' : response[3],
-            'tipo' : response[4],
-            'dinpar' : response[5],
-            'valor' : float(response[6]),
-            'parcelas' : response[7],
-            'created_at' : str(response[8]),
-            'updated_at' : str(response[9])
-        }
-        
-        return dict(result) if result else None
+        if response:
+            result = {
+                'id' : response[0],
+                'data' : str(response[1]),
+                'nome' : response[2],
+                'descricao' : response[3],
+                'tipo' : response[4],
+                'dinpar' : response[5],
+                'valor' : float(response[6]),
+                'parcelas' : response[7],
+                'created_at' : str(response[8]),
+                'updated_at' : str(response[9])
+            }
+            return dict(result) if result else None
+        return {}
     
     def list_loans(self, limit=None):
         query = select(t_loans)
@@ -106,15 +107,16 @@ class Debtors(ConnectDB):
     def get_debtor(self, id):
         query = select(t_debtors).where(t_debtors.c.id == id)
         response = self.execute(query).one_or_none()
-        result = {
-            'id' : response[0],
-            'nome' : response[1],
-            'telefone' : response[2],
-            'created_at' : str(response[3]),
-            'updated_at' : str(response[4])
-        }
-        
-        return dict(result) if result else None
+        if response:
+            result = {
+                'id' : response[0],
+                'nome' : response[1],
+                'telefone' : response[2],
+                'created_at' : str(response[3]),
+                'updated_at' : str(response[4])
+            }
+            return dict(result) if result else None
+        return {}
     
     def list_debtors(self, limit=None):
         query = select(t_debtors)
