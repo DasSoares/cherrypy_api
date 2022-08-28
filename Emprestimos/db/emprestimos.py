@@ -103,7 +103,7 @@ class Loans(ConnectDB):
 
 
 class Debtors(ConnectDB):
-    
+
     def get_debtor(self, id):
         query = select(t_debtors).where(t_debtors.c.id == id)
         response = self.execute(query).one_or_none()
@@ -117,13 +117,13 @@ class Debtors(ConnectDB):
             }
             return dict(result) if result else None
         return {}
-    
+
     def list_debtors(self, limit=None):
         query = select(t_debtors)
         if limit:
             query = query.limit(limit)
         response = self.execute(query).all()
-        
+
         result = list()
         for item in response:
             result.append({
@@ -135,51 +135,41 @@ class Debtors(ConnectDB):
             })
         return result
     
-    def insert(self, data=None, nome=None, telefone=None):
-        
+    def insert(self, nome=None, telefone=None):
+
         query = t_debtors.insert().values(
-            data = data, nome = nome, telefone = telefone, created_at = datetime.now())
-        
+            nome = nome, telefone = telefone, created_at = datetime.now())
+
         response = self.execute(query)
         if response.rowcount > 0:
             self.commit()
             return True
         return False
-    
-    def update(self, id, data=None, nome=None, descricao=None, tipo=None,
-            dinpar=None, valor=None, parcelas=None):
-        
+
+
+    def update(self, id, nome=None, telefone=None):
+
         query = t_debtors.update()
-        
-        if data:
-            query = query.values(data = data)
+
         if nome:
             query = query.values(nome = nome)
-        if descricao:
-            query = query.values(descricao = descricao)
-        if tipo:
-            query = query.values(tipo = tipo)
-        if dinpar:
-            query = query.values(dinpar = dinpar)
-        if valor:
-            query = query.values(valor = valor)
-        if parcelas:
-            query = query.values(parcelas = parcelas)
-        
+        if telefone:
+            query = query.values(telefone = telefone)
+
         query = query.values(updated_at = datetime.now())
-        
+
         query = query.where(t_debtors.c.id == id)
         response = self.execute(query)
-        
+
         if response.rowcount > 0:
             self.commit()
             return True
         return False
-    
+
     def delete(self, id):
         query = t_debtors.delete().where(t_debtors.c.id == id)
         response = self.execute(query)
-        
+
         if response.rowcount > 0:
             self.commit()
             return True
